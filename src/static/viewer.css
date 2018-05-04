@@ -3,5 +3,8 @@ body {
   color: white;
 }
 #many-channel-viewer {
-  height: 100vh;
+  height: 95vh;
+}
+#many-channel-message {
+  height: 4vh;
 }

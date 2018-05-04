@@ -1,3 +1,4 @@
+var OpenSeadragon = require('openseadragon');
 require('./viaWebGL');
 
 /*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~
