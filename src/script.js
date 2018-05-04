@@ -137,12 +137,14 @@ window.onload = function() {
       {
         type: 'image',
         url: 'images/red.png',
-        many_channel_color: 'red'
+        many_channel_color: 'red',
+        buildPyramid: false
       },
       {
         type: 'image',
         url: 'images/green.png',
-        many_channel_color: 'green'
+        many_channel_color: 'green',
+        buildPyramid: false
       }
     ]
   });
