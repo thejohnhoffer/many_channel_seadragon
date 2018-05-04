@@ -1,0 +1,35 @@
+{
+  "name": "openseadragon-channels",
+  "version": "0.0.0",
+  "description": "Colorize and thresshold images.",
+  "main": "script.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/thejohnhoffer/many_channel_seadragon.git"
+  },
+  "keywords": [
+    "openseadragon",
+    "threshhold",
+    "colorize",
+    "image",
+    "zoom"
+  ],
+  "author": "John Hoffer",
+  "license": "LICENSE.txt",
+  "bugs": {
+    "url": "https://github.com/thejohnhoffer/many_channel_seadragon/issues"
+  },
+  "homepage": "https://github.com/thejohnhoffer/many_channel_seadragon",
+  "dependencies": {
+    "openseadragon": ">=2.3.1"
+  },
+  "devDependencies": {
+    "copy-webpack-plugin": "^4.5.1",
+    "webpack": "^4.7.0",
+    "webpack-cli": "^2.1.2"
+  },
+  "scripts": {
+    "build": "webpack",
+    "clean": "rm -rf build"
+  }
+}

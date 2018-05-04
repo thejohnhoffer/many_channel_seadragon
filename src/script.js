@@ -1,5 +1,7 @@
-// Try openseadragon on multiple images
+var OpenSeadragon = require('openseadragon');
+require('../openseadragon-filtering');
 
+// Settings to overlap 720x720 pngs
 window.many_channel = {
   defaults: {
     opacity: 0.5,
@@ -16,7 +18,7 @@ window.onload = function() {
     debugMode: false,
     collectionMode: true,
     id: "many-channel-viewer",
-    prefixUrl: "openseadragon_images/",
+    prefixUrl: "images/openseadragon/",
 
     opacity: window.many_channel.defaults.opacity,
     collectionRows: window.many_channel.defaults.rows,
