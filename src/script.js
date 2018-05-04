@@ -9,6 +9,58 @@ window.many_channel = {
     tileSize: 720,
     tileMargin: -720,
     compositeOperation: "lighter"
+  },
+
+  define_interface: function(){
+
+    // Move the many channel menus to openseadragon buttons bar
+    var buttons_div = window.many_channel.osd.buttons.element;
+    buttons_div.appendChild(document.getElementById('many-channel-menus'));
+
+    var composite_menu = document.getElementById("many-channel-composite-menu");
+    var margin_menu = document.getElementById("many-channel-margin-menu");
+
+
+    // Change type of blending
+    composite_menu.onchange = function() {
+      var world = window.many_channel.osd.world;
+      
+      // Actually read selected value from list
+      var composite_operation = this.options[ this.selectedIndex ].value;
+      if (composite_operation == "Null")
+        composite_operation = null
+
+      // Set composite operation of all tiled images
+      for (var i = 0; i < world.getItemCount(); i++) { 
+        var tiled_image = world.getItemAt(i);
+        tiled_image.compositeOperation = composite_operation
+        tiled_image.reset();
+      }
+      world.update();
+    };
+
+
+    // Change size of margins
+    margin_menu.onchange = function() {
+
+      var world = window.many_channel.osd.world;
+      var row_count =  window.many_channel.defaults.rows;
+      var tile_size =  window.many_channel.defaults.tileSize;
+
+      // Actually read selected value from list
+      var margin_size = parseInt(this.options[ this.selectedIndex ].value);
+
+      // Set margin size to selected value from list
+      world.arrange({
+        tileMargin: margin_size,
+        tileSize: tile_size,
+        rows: row_count,
+      });
+
+      // Pan to the center of the world
+      var center = world.getHomeBounds().getCenter();
+      window.many_channel.osd.viewport.panTo(center);
+    };
   }
 }
 
@@ -37,48 +89,7 @@ window.onload = function() {
       }
     ]
   });
-  // Move the many channel menus to openseadragon buttons bar
-  var buttons_div = window.many_channel.osd.buttons.element;
-  buttons_div.appendChild(document.getElementById('many-channel-menus'));
 
-  var composite_menu = document.getElementById("many-channel-composite-menu");
-  var margin_menu = document.getElementById("many-channel-margin-menu");
-
-  composite_menu.onchange = function() {
-    var world = window.many_channel.osd.world;
-    
-    // Actually read selected value from list
-    var composite_operation = this.options[ this.selectedIndex ].value;
-    if (composite_operation == "Null")
-      composite_operation = null
-
-    // Set composite operation of all tiled images
-    for (var i = 0; i < world.getItemCount(); i++) { 
-      var tiled_image = world.getItemAt(i);
-      tiled_image.compositeOperation = composite_operation
-      tiled_image.reset();
-    }
-    world.update();
-  };
-
-  margin_menu.onchange = function() {
-
-    var world = window.many_channel.osd.world;
-    var row_count =  window.many_channel.defaults.rows;
-    var tile_size =  window.many_channel.defaults.tileSize;
-
-    // Actually read selected value from list
-    var margin_size = parseInt(this.options[ this.selectedIndex ].value);
-
-    // Set margin size to selected value from list
-    world.arrange({
-      tileMargin: margin_size,
-      tileSize: tile_size,
-      rows: row_count,
-    });
-
-    // Pan to the center of the world
-    var center = world.getHomeBounds().getCenter();
-    window.many_channel.osd.viewport.panTo(center);
-  };
+  // Set up the behavior of demo menus
+  window.many_channel.define_interface();
 }
