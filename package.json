@@ -30,6 +30,6 @@
   },
   "scripts": {
     "build": "webpack",
-    "clean": "rm -rf build"
+    "clean": "rm -rf docs"
   }
 }
