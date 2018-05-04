@@ -4,7 +4,7 @@ require('../openseadragon-filtering');
 // Settings to overlap 720x720 pngs
 window.many_channel = {
   defaults: {
-    opacity: 0.5,
+    opacity: 1.0,
     rows: 1,
     tileSize: 720,
     tileMargin: -720,
