@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <script src="bundle.js" async defer></script>
+    <link rel="stylesheet" href="static/viewer.css">
+
+    <meta charset="UTF-8">
+
+    <meta property="og:title" content="Many Channel OSD">
+    <meta property="og:description" content="Proper additive blending in OpenSeadragon.">
+    <meta property="og:image" content="images/red_green.png">
+
+    <title>Many Channel OSD</title>
+  
+  </head>
+  <body>
+    <span id="many-channel-message">
+    Without compositeOperation="lighter", green dominates red.
+    </span>
+    <div id="many-channel-menus">
+      <span>tileMargin:</span>
+      <select name="margin" id="many-channel-margin-menu">
+        <option value="-720">-720</option>
+        <option value="0">0</option>
+      </select>
+      <span>compositeOperation:</span>
+      <select name="composite" id="many-channel-composite-menu">
+        <option value="lighter">lighter</option>
+        <option value="null">null</option>
+      </select>
+    </div>
+    <div id="many-channel-viewer"></div>
+  </body>
+</html>
