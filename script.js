@@ -27,11 +27,11 @@ window.onload = function() {
     tileSources: [
       {
         type: 'image',
-        url: 'images/thick_bars.png'
+        url: 'images/red.png'
       },
       {
         type: 'image',
-        url: 'images/thin_bars.png'
+        url: 'images/green.png'
       }
     ]
   });
