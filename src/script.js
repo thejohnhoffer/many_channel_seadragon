@@ -1,5 +1,5 @@
 var OpenSeadragon = require('openseadragon');
-require('../openseadragon-filtering');
+require('./openSeadragonGL')
 
 // Settings to overlap 720x720 pngs
 window.many_channel = {
