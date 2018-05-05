@@ -1,0 +1,29 @@
+.css-gradient-editor-colorstops {
+  height: 4vh;
+}
+
+.css-gradient-editor-stopeditor {
+  height: 15px;
+  margin: 5px 0 20px;
+  background: #D1D4D6;
+}
+
+.css-gradient-editor-stopeditor span {
+  display: block;
+  height: 100%;
+  width: 100%;
+}
+
+.css-gradient-editor-stoppointmarkers {
+  position: relative;
+  top: -20px;
+}
+
+.color-stop {
+  background: #FFF;
+  position: absolute;
+  margin-left: -11px;
+  height: 25px;
+  cursor: move;
+  width: 25px;
+}
