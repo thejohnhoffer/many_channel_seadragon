@@ -65,13 +65,14 @@ window.many_channel = {
 
   load_gl: function(program) {
     // Set up parameters to draw each tile
- 
-    this.colorer = this.gl.getUniformLocation(program, 'u_tile_color');
 
     // Turn on additive blending
     this.gl.enable(this.gl.BLEND);
     this.gl.blendEquation(this.gl.FUNC_ADD);
     this.gl.blendFunc(this.gl.ONE, this.gl.ONE);
+
+    // Uniform variable for coloring
+    this.u_tile_color = this.gl.getUniformLocation(program, 'u_tile_color');
   },
 
   draw_gl: function() {
@@ -79,7 +80,7 @@ window.many_channel = {
  
     // Send color to shader
     var color_3fv = new Float32Array(this.rgb_color);
-    this.gl.uniform3fv(this.colorer, color_3fv);
+    this.gl.uniform3fv(this.u_tile_color, color_3fv);
 
     // Clear before each draw call
     this.gl.clear(this.gl.COLOR_BUFFER_BIT);
