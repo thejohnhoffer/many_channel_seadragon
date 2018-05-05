@@ -75,6 +75,9 @@ window.many_channel = {
  
     this.gl.uniform2f(this.wherer, this.bounds.x, this.flip_y);
     this.gl.uniform2f(this.shaper, this.bounds.width, this.bounds.height);
+
+    // Clear before each draw call
+    this.gl.clear(this.gl.COLOR_BUFFER_BIT);
   },
 
   draw_tile: function(callback, e) {
