@@ -131,6 +131,9 @@ window.onload = function() {
     debugMode: false,
     collectionMode: true,
     id: "many-channel-viewer",
+    showZoomControl: false,
+    showHomeControl: false,
+    showFullPageControl: false,
 
     opacity: window.many_channel.defaults.opacity,
     collectionRows: window.many_channel.defaults.rows,
