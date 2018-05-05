@@ -90,6 +90,7 @@ openSeadragonGL.prototype = {
                 handler.call(this, interface, e);
             });
         }
+        this.openSD.world.resetItems();
         this.openSD.world.update();
     },
     // Joint keys
