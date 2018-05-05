@@ -66,15 +66,20 @@ window.many_channel = {
   load_gl: function(program) {
     // Set up parameters to draw each tile
  
-    this.wherer = this.gl.getUniformLocation(program, 'u_tile_where');
-    this.shaper = this.gl.getUniformLocation(program, 'u_tile_shape');
+    this.colorer = this.gl.getUniformLocation(program, 'u_tile_color');
+
+    // Turn on additive blending
+    this.gl.enable(this.gl.BLEND);
+    this.gl.blendEquation(this.gl.FUNC_ADD);
+    this.gl.blendFunc(this.gl.ONE, this.gl.ONE);
   },
 
   draw_gl: function() {
     // Use parameters to draw each tile
  
-    this.gl.uniform2f(this.wherer, this.bounds.x, this.flip_y);
-    this.gl.uniform2f(this.shaper, this.bounds.width, this.bounds.height);
+    // Send color to shader
+    var color_3fv = new Float32Array(this.rgb_color);
+    this.gl.uniform3fv(this.colorer, color_3fv);
 
     // Clear before each draw call
     this.gl.clear(this.gl.COLOR_BUFFER_BIT);
@@ -83,20 +88,17 @@ window.many_channel = {
   draw_tile: function(callback, e) {
     // Read parameters from each tile 
 
+    var tile = e.tile;
     var via = this.viaGL;
     var viewer = this.openSD;
     var image = e.tiledImage;
     var source = image.source;
 
-    // Apply only to certain tiled image
-    if (source.many_channel_color == "red") {
-      via.bounds = e.tile.bounds;
-      var y = via.bounds.y + via.bounds.height;
-      via.flip_y = image.getBounds().height - y;
+    // Store channel color to send to shader
+    via.rgb_color = source.many_channel_color;
  
-      // Start webGL rendering
-      callback(e)
-    }
+    // Start webGL rendering
+    callback(e)
   },
 
   link_webgl: function(_viewer) {
@@ -139,14 +141,14 @@ window.onload = function() {
     tileSources: [
       {
         type: 'image',
-        url: 'images/red.png',
-        many_channel_color: 'red',
+        url: 'images/bw_red.png',
+        many_channel_color: [1, 0, 0],
         buildPyramid: false
       },
       {
         type: 'image',
-        url: 'images/green.png',
-        many_channel_color: 'green',
+        url: 'images/bw_green.png',
+        many_channel_color: [0, 1, 0],
         buildPyramid: false
       }
     ]
