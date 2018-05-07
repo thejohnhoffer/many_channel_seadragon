@@ -1,5 +1,6 @@
 var OpenSeadragon = require('openseadragon');
 require('./openSeadragonGL')
+require('./colorstops')
 
 // Settings to overlap 720x720 pngs
 window.many_channel = {
@@ -162,4 +163,8 @@ window.onload = function() {
 
   // Set up the behavior of demo menus
   window.many_channel.define_interface(viewer);
+
+  // Set up color sliders
+  var color_slider = document.getElementById('many-channel-color-slider');
+  window.attach_color_events(color_slider);
 }

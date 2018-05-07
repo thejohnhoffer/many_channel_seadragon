@@ -20,25 +20,13 @@
     Without compositeOperation="lighter", green dominates red.
     </div>
 
-		<div class="css-gradient-editor-colorstops">
-			<div class="css-gradient-editor-stopeditor">
-				<span></span>
-				<div class="css-gradient-editor-stoppointmarkers">
-					<div class="color-stop" style="left: 1.6%;">
-						<div><span style="background-color: rgb(0, 0, 0);"></span></div>
-					</div>
-					<div class="color-stop" style="left: 27.8351%;">
-						<div><span style="background-color: rgb(0, 0, 0);"></span></div>
-					</div>
-					<div class="color-stop" style="left: 91.5464%;">
-						<div><span style="background-color: rgb(255, 0, 0);"></span></div>
-					</div>
-					<div class="color-stop" style="left: 100%;">
-						<div><span style="background-color: rgb(255, 0, 0);"></span></div>
-					</div>
-				</div>
-			</div>
-		</div>
+
+    <div id="many-channel-color-slider">
+      <input value="0" min="0" max="1" step=".01" type="range">
+      <input value="1" min="0" max="1" step=".01" type="range">
+      <canvas></canvas>
+    </div>
+
 
     <div id="many-channel-menus">
       <span>tileMargin:</span>
