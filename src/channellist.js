@@ -73,7 +73,7 @@ window.read_source_list = function(elem) {
   // Set default hash and query for test images
   var [hash, query] = window.location.hash.split('?');
   query = query || "0src=images/bw_red.png&1src=images/bw_green.png";
-  hash = hash || "0,FF0000,0,1/0,00FF00,0,1";
+  hash = hash || "#/0,FF0000,0,1/0,00FF00,0,1";
 
   // Parse channel parameters and urls from #hash?query
   var channel_list = make_channel_list(hash.slice(2));
