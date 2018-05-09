@@ -87,8 +87,8 @@ window.read_source_list = function(elem) {
 
   // Set default query for channel urls
   var search = window.location.search.slice(1)
-  var query = "0src=images/bw_red.png&" +
-    "1src=images/bw_green.png"
+  var query = "0src=/minerva-test-images/png_tiles/C0-T0-Z0-L0-Y2-X4.png&" +
+    "1src=/minerva-test-images/png_tiles/C1-T0-Z0-L0-Y2-X4.png";
   if (search != '')
     query += '&' + search;
 
