@@ -58,6 +58,7 @@ var channel_to_source = function(channel, order) {
   // Set URL for static image source
   return {
     url: this[order] || this.src,
+    crossOriginPolicy: 'Anonymous',
     buildPyramid: false,
     type: 'image',
     ...channel
