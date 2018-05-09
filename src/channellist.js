@@ -3,6 +3,10 @@ var make_channel_list = function(hash) {
   //
   // hash: string like 0,FF0000,0,1/0,00FF00,0.1,0.5/...
 
+  if (hash == "")
+    return [];
+
+  // All channels separated by slash
   var channels = hash.split('/');
   return channels.map(function(channel) {
     var [id, hex, min, max] = channel.split(',');
@@ -77,14 +81,19 @@ window.read_source_list = function(elem) {
   //
   // elem: the html div listing editable sources
 
-  // Set default hash and query for test images
-  var [hash, query] = window.location.hash.split('?');
-  query = query || "0src=/minerva-test-images/png_tiles/C0-T0-Z0-L0-Y2-X4.png&" +
-    "1src=/minerva-test-images/png_tiles/C1-T0-Z0-L0-Y2-X4.png";
-  hash = hash || "#/0,FF0000,0,1/0,00FF00,0,1";
+  // Set default hash for channel rendering
+  var hash = window.location.hash.slice(2);
+  hash = hash || "0,FF0000,0,1/0,00FF00,0,1";
+
+  // Set default query for channel urls
+  var search = window.location.search.slice(1)
+  var query = "0src=images/bw_red.png&" +
+    "1src=images/bw_green.png"
+  if (search != '')
+    query += '&' + search;
 
   // Parse channel parameters and urls from #hash?query
-  var channel_list = make_channel_list(hash.slice(2));
+  var channel_list = make_channel_list(hash);
   var url_hash = make_url_hash(query);
 
   // Return all channel lists with correct urls

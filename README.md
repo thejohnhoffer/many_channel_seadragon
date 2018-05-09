@@ -14,16 +14,16 @@ The website is built in the `docs` folder, which is read by github pages.
 Here are the default values for url parameters:
 
 ```
-#/0,FF0000,0,1/0,00FF00,0,1?0src=images/bw_red.png&1src=images/bw_green.png&active=0
+?0src=images/bw_red.png&1src=images/bw_green.png&active=0#/0,FF0000,0,1/0,00FF00,0,1
 ```
 
-To load only a specific image into the red channel, the url parameters should be:
+To render only the red channel from red.png, the url parameters should be:
 
 ```
-#/0,FF0000,0,1?src=image.png
+?src=red.png#/0,FF0000,0,1
 ```
 
-To activate green.png in the second channel (green by default)
+To activate green.png in the second channel with default 2-channel rendering:
 ```
-#?0src=red.png&1src=green.png&active=1
+?1src=green.png&active=1
 ```
