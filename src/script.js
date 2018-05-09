@@ -1,6 +1,7 @@
 var OpenSeadragon = require('openseadragon');
-require('./openSeadragonGL')
-require('./colorstops')
+require('./openSeadragonGL');
+require('./channellist');
+require('./colorstops');
 
 // Settings to overlap 720x720 pngs
 window.many_channel = {
@@ -109,7 +110,7 @@ window.many_channel = {
     // Connect the viewer to webgl shaders
 
     // Define interface to shaders
-    var seaGL = new openSeadragonGL(_viewer);
+    var seaGL = new window.openSeadragonGL(_viewer);
     seaGL.vShader = 'static/vert.glsl';
     seaGL.fShader = 'static/frag.glsl';
 
@@ -130,6 +131,11 @@ window.many_channel = {
 
 window.onload = function() {
 
+  // Set up channel list
+  var source_list = document.getElementById('many-channel-source-list');
+  var tileSources = window.read_source_list(source_list);
+
+  // Set up openseadragon viewer
   var viewer = OpenSeadragon({
     debugMode: false,
     collectionMode: true,
@@ -145,23 +151,9 @@ window.onload = function() {
     collectionTileMargin: window.many_channel.defaults.tileMargin,
     compositeOperation: window.many_channel.defaults.compositeOperation,
 
-    tileSources: [
-      {
-        type: 'image',
-        url: 'images/bw_red.png',
-        many_channel_color: [1, 0, 0],
-        many_channel_range: [0, 1],
-        buildPyramid: false
-      },
-      {
-        type: 'image',
-        url: 'images/bw_green.png',
-        many_channel_color: [0, 1, 0],
-        many_channel_range: [0, 1],
-        buildPyramid: false
-      }
-    ]
+    tileSources: tileSources
   });
+
   // Start up webgl filters
   window.many_channel.link_webgl(viewer);
 
@@ -171,4 +163,5 @@ window.onload = function() {
   // Set up color sliders
   var color_slider = document.getElementById('many-channel-color-slider');
   window.attach_color_events(color_slider, viewer);
+
 }
