@@ -1,3 +1,5 @@
+var get_query_default = require("./defaults.js")
+
 var make_channel_list = function(hash) {
   // Return list of channel rendering parameters
   //
@@ -51,7 +53,7 @@ var make_url_hash = function(query) {
 
       // Default source has no number
       else
-        sources.src = value; 
+        sources.src = value;
     }
   });
 
@@ -88,9 +90,8 @@ window.read_source_list = function(elem) {
   hash = hash || "0,FF0000,0,1/0,00FF00,0,1";
 
   // Set default query for channel urls
+  var query = get_query_default(window.location.pathname) || "";
   var search = window.location.search.slice(1)
-  var query = "0src=/minerva-test-images/png_tiles/C0-T0-Z0-L0-Y2-X4.png&" +
-    "1src=/minerva-test-images/png_tiles/C1-T0-Z0-L0-Y2-X4.png";
   if (search != '')
     query += '&' + search;
 
