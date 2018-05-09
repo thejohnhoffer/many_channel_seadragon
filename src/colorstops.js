@@ -1,3 +1,19 @@
+var is_active = s => s.many_channel_active;
+
+var get_active_in_world = function(world) {
+
+  for (var i = 0; i < world.getItemCount(); i++) {
+    var tileSource = world.getItemAt(i).source;
+    if (is_active(tileSource))
+      return tileSource;
+  }
+}
+
+var get_active_in_sources = function(tileSources) {
+
+  return tileSources.filter(is_active)[0];
+}
+
 function define_gradient(elem, color, val0, val1) {
   //
   // elem: div element containing canvas and two inputs
@@ -46,7 +62,7 @@ function update_color_range(e) {
   }
 
   // set the range in first tiledimage
-  var tileSource = this.world.getItemAt(0).source;
+  var tileSource = get_active_in_world(this.world);
   tileSource.many_channel_range = [val0, val1];
 
   // Draw to the canvas for feedback
@@ -73,7 +89,7 @@ window.attach_color_events = function(elem, viewer) {
   }
 
   // Set up initial gradient for first tileSource
-  var tileSource = viewer.tileSources[0];
+  var tileSource = get_active_in_sources(viewer.tileSources);
   var color = tileSource.many_channel_color;
   var range = tileSource.many_channel_range;
   define_gradient(elem, color, ...range);

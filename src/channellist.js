@@ -25,12 +25,18 @@ var make_url_hash = function(query) {
   
   // Default source as image
   var sources = {
-    src: 'image.png'
+    src: 'image.png',
+    active: 0,
   }
 
   // Queries set sources
   query.split('&').forEach(function(entry) {
     var [key, value] = entry.split('=');
+    
+    // Set active entry
+    if (key == 'active') {
+      sources.active = parseInt(value);
+    }
 
     // Use entries ending with src
     if (key.slice(-3) == 'src') {
@@ -58,6 +64,7 @@ var channel_to_source = function(channel, order) {
   // Set URL for static image source
   return {
     url: this[order] || this.src,
+    many_channel_active: order == this.active,
     crossOriginPolicy: 'Anonymous',
     buildPyramid: false,
     type: 'image',
