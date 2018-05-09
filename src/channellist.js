@@ -68,11 +68,13 @@ var channel_to_source = function(channel, order) {
   // Set URL for static image source
   return {
     url: this[order] || this.src,
+    many_channel_color: channel.many_channel_color,
+    many_channel_range: channel.many_channel_range,
+    many_channel_id: channel.many_channel_id,
     many_channel_active: order == this.active,
     crossOriginPolicy: 'Anonymous',
     buildPyramid: false,
     type: 'image',
-    ...channel
   };
 }
 
