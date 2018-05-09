@@ -30,13 +30,13 @@ window.many_channel = {
       // Actually read selected value from list
       var composite_operation = this.options[ this.selectedIndex ].value;
       if (composite_operation == "Null")
-        composite_operation = null
+        composite_operation = null;
 
       // Set composite operation of all tiled images
-      for (var i = 0; i < world.getItemCount(); i++) { 
+      for (var i = 0; i < world.getItemCount(); i++) {
         var tiled_image = world.getItemAt(i);
-        tiled_image.compositeOperation = composite_operation
-        tiled_image.reset();
+        tiled_image.compositeOperation = composite_operation;
+        tiled_image._needsDraw = true;
       }
       world.update();
     };
@@ -74,14 +74,15 @@ window.many_channel = {
 
     // Uniform variable for coloring
     this.u_tile_color = this.gl.getUniformLocation(program, 'u_tile_color');
+    this.u_tile_range = this.gl.getUniformLocation(program, 'u_tile_range');
   },
 
   draw_gl: function() {
     // Use parameters to draw each tile
  
-    // Send color to shader
-    var color_3fv = new Float32Array(this.rgb_color);
-    this.gl.uniform3fv(this.u_tile_color, color_3fv);
+    // Send color and range to shader
+    this.gl.uniform3fv(this.u_tile_color, this.color_3fv);
+    this.gl.uniform2fv(this.u_tile_range, this.range_2fv);
 
     // Clear before each draw call
     this.gl.clear(this.gl.COLOR_BUFFER_BIT);
@@ -96,8 +97,9 @@ window.many_channel = {
     var image = e.tiledImage;
     var source = image.source;
 
-    // Store channel color to send to shader
-    via.rgb_color = source.many_channel_color;
+    // Store channel color and range to send to shader
+    via.color_3fv = new Float32Array(source.many_channel_color);
+    via.range_2fv = new Float32Array(source.many_channel_range);
  
     // Start webGL rendering
     callback(e)
@@ -148,12 +150,14 @@ window.onload = function() {
         type: 'image',
         url: 'images/bw_red.png',
         many_channel_color: [1, 0, 0],
+        many_channel_range: [0, 1],
         buildPyramid: false
       },
       {
         type: 'image',
         url: 'images/bw_green.png',
         many_channel_color: [0, 1, 0],
+        many_channel_range: [0, 1],
         buildPyramid: false
       }
     ]
@@ -166,5 +170,5 @@ window.onload = function() {
 
   // Set up color sliders
   var color_slider = document.getElementById('many-channel-color-slider');
-  window.attach_color_events(color_slider);
+  window.attach_color_events(color_slider, viewer);
 }

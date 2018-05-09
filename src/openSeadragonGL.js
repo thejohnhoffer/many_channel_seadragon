@@ -90,7 +90,13 @@ openSeadragonGL.prototype = {
                 handler.call(this, interface, e);
             });
         }
-        this.openSD.world.resetItems();
+
+        // Indicate all tiles need draw
+        var world = this.openSD.world;
+        for (var i = 0; i < world.getItemCount(); i++) {
+          var tiled_image = world.getItemAt(i);
+          tiled_image._needsDraw = true;
+        }
         this.openSD.world.update();
     },
     // Joint keys
