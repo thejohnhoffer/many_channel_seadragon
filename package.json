@@ -21,7 +21,7 @@
   },
   "homepage": "https://github.com/thejohnhoffer/many_channel_seadragon",
   "dependencies": {
-    "openseadragon": ">=2.3.1"
+    "openseadragon": "git://github.com/thejohnhoffer/openseadragon.git#ajax_callback"
   },
   "devDependencies": {
     "babel-core": "^6.26.3",
