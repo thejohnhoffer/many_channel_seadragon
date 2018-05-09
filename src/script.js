@@ -8,8 +8,8 @@ window.many_channel = {
   defaults: {
     opacity: 1.0,
     rows: 1,
-    tileSize: 720,
-    tileMargin: -720,
+    tileSize: 1024,
+    tileMargin: -1024,
     compositeOperation: "lighter",
     prefixUrl: "images/openseadragon/"
   },
