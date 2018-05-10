@@ -1,4 +1,5 @@
 var get_query_default = require("./defaults.js")
+var UPNG = require('upng-js');
 
 var make_channel_list = function(hash) {
   // Return list of channel rendering parameters
@@ -77,6 +78,19 @@ var channel_to_source = function(channel, order) {
     crossOriginPolicy: 'Anonymous',
     buildPyramid: false,
     type: 'image',
+    filterAjaxResponse: function(response) {
+
+      // Decode png into rgba channels
+      var img  = UPNG.decode(response); 
+      var rgba_img = UPNG.toRGBA8(img)[0];
+
+      // Encode into rgba png
+      var rgba_shape = [img.width, img.height, 0];
+      var rgba_png = UPNG.encode([rgba_img], ...rgba_shape);
+
+      // Return as blob
+      return new window.Blob([new Uint8Array(rgba_png)]);
+    }
   };
 }
 

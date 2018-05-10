@@ -21,15 +21,16 @@
   },
   "homepage": "https://github.com/thejohnhoffer/many_channel_seadragon",
   "dependencies": {
+    "upng-js": "^2.1.0",
     "openseadragon": "git://github.com/thejohnhoffer/openseadragon.git#ajax_callback"
   },
   "devDependencies": {
     "babel-core": "^6.26.3",
     "babel-loader": "^7.1.4",
     "babel-preset-env": "^1.6.1",
+    "copy-webpack-plugin": "^4.5.1",
     "webpack": "^4.7.0",
-    "webpack-cli": "^2.1.2",
-    "copy-webpack-plugin": "^4.5.1"
+    "webpack-cli": "^2.1.2"
   },
   "scripts": {
     "build": "webpack --watch",

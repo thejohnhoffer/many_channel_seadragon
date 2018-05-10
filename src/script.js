@@ -1,4 +1,5 @@
 var OpenSeadragon = require('openseadragon');
+var UPNG = require('upng-js');
 require('./openSeadragonGL');
 require('./channellist');
 require('./colorstops');
@@ -143,6 +144,7 @@ window.onload = function() {
     showZoomControl: false,
     showHomeControl: false,
     showFullPageControl: false,
+    loadTilesWithAjax: true,
 
     opacity: window.many_channel.defaults.opacity,
     collectionRows: window.many_channel.defaults.rows,
