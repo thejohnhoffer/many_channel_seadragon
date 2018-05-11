@@ -11,7 +11,8 @@ module.exports = function(pathname) {
 
   // Different defaults by root path
   if (root_path == 'many-channel-osd') {
-    query_default = "0src=/minerva-test-images/png_tiles/C0-T0-Z0-L0-Y2-X4.png"
+    query_default = "type=image"
+    + "&0src=/minerva-test-images/png_tiles/C0-T0-Z0-L0-Y2-X4.png"
     + "&1src=/minerva-test-images/png_tiles/C1-T0-Z0-L0-Y2-X4.png";
   }
 

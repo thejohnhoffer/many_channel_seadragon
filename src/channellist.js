@@ -29,7 +29,7 @@ var get_tilesource_options = function(hash, query) {
   if (hash == "")
     return [];
 
-  // Default source as image
+  var source_type = "custom";
   var active_source = 0;
   var num_sources = 0;
   var source_urls = {};
@@ -41,6 +41,10 @@ var get_tilesource_options = function(hash, query) {
     // Set active entry
     if (key == 'active') {
       active_source = parseInt(value);
+    }
+    // Redefine source type
+    if (key == 'type') {
+      source_type = value;
     }
 
     // Use entries ending with src
@@ -66,7 +70,7 @@ var get_tilesource_options = function(hash, query) {
     var is_active = order == active_source;
     
     // Create a TileSourceOptions Object
-    return TileSourceOptions(channel, source_url, is_active);
+    return TileSourceOptions(channel, source_url, source_type, is_active);
   });
 }
 

@@ -37,19 +37,40 @@ var filterAjaxResponse = function(response) {
  *
  * @return {Oject} tileSource Options
  */
-module.exports = function(channel, url, selected) {
-  return {
+module.exports = function(channel, url, type, selected) {
+  var output = {
     filterAjaxResponse: filterAjaxResponse,
     many_channel_color: channel.many_channel_color,
     many_channel_range: channel.many_channel_range,
     many_channel_id: channel.many_channel_id,
     many_channel_active: selected,
     many_channel_bitdepth: 8,
-    crossOriginPolicy: 'Anonymous',
-    buildPyramid: false,
-    type: 'image',
-    url: url
   }
+  // Single image
+  if (type == "image") {
+    output.buildPyramid = false; 
+    output.type = "image";
+    output.url = url;
+    return output;
+  } 
+  // Many channels in tiled image
+  output.getTileUrl = function(l, x, y){
+    var level = this.source.maxLevel - l;
+    var channel = this.source.many_channel_id;
+    var url = this.source.many_channel_url;
+    
+    // Format the file name
+    var name = "C" + channel + "-T0-Z0-L" + level + "-Y" + y + "-X" + x + ".png";
+    return url + '/' + name; 
+  
+  }
+  output.many_channel_url = url;
+  output.tileSize = 1024;
+  output.height = 1024;
+  output.width = 1024;
+  output.minLevel = 0;
+  output.maxLevel = 3;
+  return output;
 };
 
 
