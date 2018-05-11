@@ -47,10 +47,12 @@ function update_color_range(e) {
 
   var elem = e.target.parentNode;
   var sliders = elem.querySelectorAll('input');
+
+  // Get values from sliders
   var val0 = parseFloat(sliders[0].value);
   var val1 = parseFloat(sliders[1].value);
 
-  // avoid slider overlap
+  // Input validation on values
   if (val0 >= val1) {
     if (e.target == sliders[0]) {
       sliders[1].value = val0 + 0.1;
@@ -61,11 +63,11 @@ function update_color_range(e) {
     return;
   }
 
-  // set the range in first tiledimage
+  // Set values for the active tiled image
   var tileSource = get_active_in_world(this.world);
   tileSource.many_channel_range = [val0, val1];
 
-  // Draw to the canvas for feedback
+  // Set gradient from values
   var color = tileSource.many_channel_color;
   define_gradient(elem, color, val0, val1);
 
@@ -82,14 +84,21 @@ window.attach_color_events = function(elem, viewer) {
   // elem: div element containing canvas and two inputs
   // viewer: openseadragon.viewer
 
-  var color_inputs = elem.querySelectorAll('input');
-  for (var i = 0; i < color_inputs.length; i++) {
-    var color_input = color_inputs[i];
+  var sliders = elem.querySelectorAll('input');
+
+  // Get values from active tile source options
+  var tileSource = get_active_in_sources(viewer.tileSources);
+  var color = tileSource.many_channel_color;
+  var range = tileSource.many_channel_range;
+
+  // Cause sliders to change values
+  for (var i = 0; i < sliders.length; i++) {
+    var color_input = sliders[i];
+    color_input.value = range[i];
     color_input.oninput = update_color_range.bind(viewer);
   }
 
-  // Set up initial gradient for first tileSource
-  var tileSource = get_active_in_sources(viewer.tileSources);
+  // Set gradient from values
   var color = tileSource.many_channel_color;
   var range = tileSource.many_channel_range;
   define_gradient(elem, color, ...range);
