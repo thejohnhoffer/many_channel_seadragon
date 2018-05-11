@@ -1,48 +1,46 @@
 var get_query_default = require("./defaults.js")
-var UPNG = require('upng-js');
+var TileSourceOptions = require('./tilesourceoptions.js');
 
-var make_channel_list = function(hash) {
-  // Return list of channel rendering parameters
+var get_rendering_options = function(channel_hash) {
+  // Reads rendering parameters from string
   //
-  // hash: string like 0,FF0000,0,1/0,00FF00,0.1,0.5/...
+  // hash: string like 0,FF0000,0,1
 
+  var [id, hex, min, max] = channel_hash.split(',');
+
+  return {
+    'many_channel_id': parseInt(id),
+    'many_channel_range': [min, max].map(parseFloat),
+    'many_channel_color': [
+      parseInt(hex.substr(0,2), 16) / 255,
+      parseInt(hex.substr(2,2), 16) / 255,
+      parseInt(hex.substr(4,2), 16) / 255
+    ]
+  }
+}
+
+var get_tilesource_options = function(hash, query) {
+  // Return hash givin source url by channel
+  // 
+  // hash: string like 0,FF0000,0,1/0,00FF00,0.1,0.5/...
+  // query: string like src=...&10src=...
+  
+  // No channels to render
   if (hash == "")
     return [];
 
-  // All channels separated by slash
-  var channels = hash.split('/');
-  return channels.map(function(channel) {
-    var [id, hex, min, max] = channel.split(',');
-    return {
-      'many_channel_id': parseInt(id),
-      'many_channel_range': [min, max].map(parseFloat),
-      'many_channel_color': [
-        parseInt(hex.substr(0,2), 16) / 255,
-        parseInt(hex.substr(2,2), 16) / 255,
-        parseInt(hex.substr(4,2), 16) / 255
-      ]
-    }
-  });
-}
-
-var make_url_hash = function(query) {
-  // Return hash givin source url by channel
-  // 
-  // query: string like src=...&10src=...
-  
   // Default source as image
-  var sources = {
-    src: 'image.png',
-    active: 0,
-  }
+  var active_source = 0;
+  var num_sources = 0;
+  var source_urls = {};
 
-  // Queries set sources
+  // Set active source, source urls
   query.split('&').forEach(function(entry) {
     var [key, value] = entry.split('=');
     
     // Set active entry
     if (key == 'active') {
-      sources.active = parseInt(value);
+      active_source = parseInt(value);
     }
 
     // Use entries ending with src
@@ -50,54 +48,30 @@ var make_url_hash = function(query) {
 
       // Specific source has a number
       if (parseInt(key))
-        sources[parseInt(key)] = value;
+        source_urls[parseInt(key)] = value;
 
       // Default source has no number
       else
-        sources.src = value;
+        source_urls.src = value;
     }
   });
 
-  return sources
-}
+  // Rendering parameters for each channel
+  var channel_list = hash.split('/').map(get_rendering_options);
 
-var channel_to_source = function(channel, order) {
-  // Convert rendering parameters to tiled image
-  //
-  // this: Object hashing channel index to url source
-  // channel: rendeing parameters for channel
-  // order: order of channel in sequence
-
-  // Set URL for static image source
-  return {
-    url: this[order] || this.src,
-    many_channel_color: channel.many_channel_color,
-    many_channel_range: channel.many_channel_range,
-    many_channel_id: channel.many_channel_id,
-    many_channel_active: order == this.active,
-    crossOriginPolicy: 'Anonymous',
-    buildPyramid: false,
-    type: 'image',
-    filterAjaxResponse: function(response) {
-
-      // Decode png into rgba channels
-      var img  = UPNG.decode(response); 
-      var rgba_img = UPNG.toRGBA8(img)[0];
-
-      // Encode into rgba png
-      var rgba_shape = [img.width, img.height, 0];
-      var rgba_png = UPNG.encode([rgba_img], ...rgba_shape);
-
-      // Return as blob
-      return new window.Blob([new Uint8Array(rgba_png)]);
-    }
-  };
+  // Create TileSource options for each channel
+  return channel_list.map(function(channel, order) {
+    
+    var source_url = source_urls[order] || source_urls.src;
+    var is_active = order == active_source;
+    
+    // Create a TileSourceOptions Object
+    return TileSourceOptions(channel, source_url, is_active);
+  });
 }
 
 window.read_source_list = function(elem) {
   // Return list of tileSource channels for openseadragon
-  //
-  // elem: the html div listing editable sources
 
   // Set default hash for channel rendering
   var hash = window.location.hash.slice(2);
@@ -109,10 +83,6 @@ window.read_source_list = function(elem) {
   if (search != '')
     query += '&' + search;
 
-  // Parse channel parameters and urls from #hash?query
-  var channel_list = make_channel_list(hash);
-  var url_hash = make_url_hash(query);
-
-  // Return all channel lists with correct urls
-  return channel_list.map(channel_to_source.bind(url_hash));
+  // List of tileSource options from ?query#hash
+  return get_tilesource_options(hash, query);
 }

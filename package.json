@@ -21,8 +21,8 @@
   },
   "homepage": "https://github.com/thejohnhoffer/many_channel_seadragon",
   "dependencies": {
-    "upng-js": "^2.1.0",
-    "openseadragon": "git://github.com/thejohnhoffer/openseadragon.git#ajax_callback"
+    "openseadragon": "git://github.com/thejohnhoffer/openseadragon.git#ajax_callback",
+    "upng-js": "git://github.com/photopea/UPNG.js.git#master"
   },
   "devDependencies": {
     "babel-core": "^6.26.3",

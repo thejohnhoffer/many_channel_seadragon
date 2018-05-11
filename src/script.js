@@ -1,5 +1,4 @@
 var OpenSeadragon = require('openseadragon');
-var UPNG = require('upng-js');
 require('./openSeadragonGL');
 require('./channellist');
 require('./colorstops');
@@ -77,6 +76,7 @@ window.many_channel = {
     // Uniform variable for coloring
     this.u_tile_color = this.gl.getUniformLocation(program, 'u_tile_color');
     this.u_tile_range = this.gl.getUniformLocation(program, 'u_tile_range');
+    this.u_bitdepth = this.gl.getUniformLocation(program, 'u_bitdepth');
   },
 
   draw_gl: function() {
@@ -85,6 +85,7 @@ window.many_channel = {
     // Send color and range to shader
     this.gl.uniform3fv(this.u_tile_color, this.color_3fv);
     this.gl.uniform2fv(this.u_tile_range, this.range_2fv);
+    this.gl.uniform1i(this.u_bitdepth, this.bitdepth_1i);
 
     // Clear before each draw call
     this.gl.clear(this.gl.COLOR_BUFFER_BIT);
@@ -102,6 +103,7 @@ window.many_channel = {
     // Store channel color and range to send to shader
     via.color_3fv = new Float32Array(source.many_channel_color);
     via.range_2fv = new Float32Array(source.many_channel_range);
+    via.bitdepth_1i = source.many_channel_bitdepth;
  
     // Start webGL rendering
     callback(e)
