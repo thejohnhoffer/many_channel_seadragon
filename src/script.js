@@ -146,7 +146,6 @@ window.onload = function() {
     showZoomControl: false,
     showHomeControl: false,
     showFullPageControl: false,
-    loadTilesWithAjax: true,
 
     opacity: window.many_channel.defaults.opacity,
     collectionRows: window.many_channel.defaults.rows,
