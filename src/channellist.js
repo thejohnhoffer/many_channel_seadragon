@@ -79,7 +79,7 @@ window.read_source_list = function(elem) {
 
   // Set default hash for channel rendering
   var hash = window.location.hash.slice(2);
-  hash = hash || "0,FF0000,0,1/0,00FF00,0,1";
+  hash = hash || "0,FF0000,0,1/1,00FF00,0,1";
 
   // Set default query for channel urls
   var query = get_query_default(window.location.pathname) || "";

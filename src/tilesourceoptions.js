@@ -55,9 +55,9 @@ module.exports = function(channel, url, type, selected) {
   } 
   // Many channels in tiled image
   output.getTileUrl = function(l, x, y){
-    var level = this.source.maxLevel - l;
-    var channel = this.source.many_channel_id;
-    var url = this.source.many_channel_url;
+    var level = this.maxLevel - l;
+    var channel = this.many_channel_id;
+    var url = this.many_channel_url;
     
     // Format the file name
     var name = "C" + channel + "-T0-Z0-L" + level + "-Y" + y + "-X" + x + ".png";
@@ -68,7 +68,6 @@ module.exports = function(channel, url, type, selected) {
   output.tileSize = 1024;
   output.height = 1024;
   output.width = 1024;
-  output.minLevel = 0;
   output.maxLevel = 3;
   return output;
 };

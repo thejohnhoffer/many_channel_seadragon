@@ -14,7 +14,7 @@ The website is built in the `docs` folder, which is read by github pages.
 By default, we show [these sources](/src/defaults.js). 2-channel red, green rendering is the default:
 
 ```
-#/0,FF0000,0,1/0,00FF00,0,1
+#/0,FF0000,0,1/1,00FF00,0,1
 ```
 
 To render only the red channel from red.png, the url parameters should be:
