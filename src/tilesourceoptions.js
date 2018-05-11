@@ -17,6 +17,8 @@ var filterAjaxResponse = function(response) {
     for (var i = 0; i < h*w; i++) {
       out_img[4 * i] = img.data[2 * i];
       out_img[4 * i + 1] = img.data[2 * i + 1];
+      out_img[4 * i + 2] = 255;
+      out_img[4 * i + 3] = 255;
     }
 
     // Encode as RGBA png and flag in tileSource

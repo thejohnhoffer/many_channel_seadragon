@@ -7,9 +7,7 @@ uniform vec2 u_tile_range;
 varying vec2 v_tile_pos;
 
 float unpack_u16(vec4 pixel) {
-  vec2 order = vec2(256., 1.) / 65535.;
-  vec2 bytes = 255. * vec2(pixel.r, pixel.g);
-  return dot(bytes, order);
+  return (256. * pixel.r + pixel.g) / 257.;
 }
 
 void main() {
