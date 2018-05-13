@@ -66,8 +66,8 @@ module.exports = function(channel, url, type, selected) {
   }
   output.many_channel_url = url;
   output.tileSize = 1024;
-  output.height = 1024*4;
-  output.width = 1024*8;
+  output.height = 4080;
+  output.width = 7720;
   output.minLevel = 0;
   output.maxLevel = 3;
   return output;

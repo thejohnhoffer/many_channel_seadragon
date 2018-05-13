@@ -1,4 +1,3 @@
-var get_query_default = require("./defaults.js")
 var TileSourceOptions = require('./tilesourceoptions.js');
 
 var get_rendering_options = function(channel_hash) {
@@ -74,7 +73,7 @@ var get_tilesource_options = function(hash, query) {
   });
 }
 
-window.read_source_list = function(elem) {
+window.read_source_list = function(defaults) {
   // Return list of tileSource channels for openseadragon
 
   // Set default hash for channel rendering
@@ -82,7 +81,7 @@ window.read_source_list = function(elem) {
   hash = hash || "0,FF0000,0,1/1,00FF00,0,1";
 
   // Set default query for channel urls
-  var query = get_query_default(window.location.pathname) || "";
+  var query =  defaults.query || "";
   var search = window.location.search.slice(1)
   if (search != '')
     query += '&' + search;

@@ -1,4 +1,5 @@
 var OpenSeadragon = require('openseadragon');
+var get_defaults = require("./defaults")
 require('./openSeadragonGL');
 require('./channellist');
 require('./colorstops');
@@ -134,13 +135,13 @@ window.many_channel = {
 
 window.onload = function() {
 
-  // Set up channel list
-  var source_list = document.getElementById('many-channel-source-list');
-  var tileSources = window.read_source_list(source_list);
+  // Set up channel list from the url
+  var defaults = get_defaults(window.location.pathname);
+  var tileSources = window.read_source_list(defaults);
 
   // Set up openseadragon viewer
   var viewer = OpenSeadragon({
-    debugMode: false,
+    debugMode: defaults.debug,
     collectionMode: true,
     id: "many-channel-viewer",
     showZoomControl: false,
