@@ -26,6 +26,9 @@ module.exports = {
             from: 'src/images',
             to: 'images'
         }, {
+            from: 'src/favicons',
+            to: '.'
+        }, {
             from: 'src/static',
             to: 'static'
         }, {
