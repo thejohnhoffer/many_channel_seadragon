@@ -4,7 +4,7 @@ require('./openSeadragonGL');
 require('./channellist');
 require('./colorstops');
 
-// Settings to overlap 720x720 pngs
+// Hard-code tiles of 1024 pixels
 window.many_channel = {
   defaults: {
     opacity: 1.0,
