@@ -1,3 +1,13 @@
+### Dependencies
+
+Currently, we depend on modified versions of [OpenSeadragon][OSD] and [UPNG.js][UPNG].
+
+As this project is being developed, we're improving [an OpenSeadragon plugin][via_pr].
+
+[OSD]: http://openseadragon.github.io/
+[UPNG]: https://github.com/photopea/UPNG.js/
+[via_pr]: https://github.com/thejohnhoffer/viaWebGL/pull/6
+
 ### Building
 
 Install dependencies, build the website, watch for changes:
