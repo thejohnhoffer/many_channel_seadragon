@@ -1,6 +1,7 @@
+var OSDGL = require('viawebgl').openSeadragonGL;
 var OpenSeadragon = require('openseadragon');
 var get_defaults = require("./defaults")
-require('./openSeadragonGL');
+
 require('./channellist');
 require('./colorstops');
 
@@ -114,7 +115,7 @@ window.many_channel = {
     // Connect the viewer to webgl shaders
 
     // Define interface to shaders
-    var seaGL = new window.openSeadragonGL(_viewer);
+    var seaGL = new openSeadragonGL(_viewer);
     seaGL.vShader = 'static/vert.glsl';
     seaGL.fShader = 'static/frag.glsl';
 
