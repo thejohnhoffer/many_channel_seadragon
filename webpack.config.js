@@ -4,18 +4,21 @@ var CopyWebpackPlugin = require('copy-webpack-plugin');
 
 module.exports = {
     context: __dirname,
-    mode: 'development',
-    entry: ['./src/script.js'],
+    mode: 'production',
+    entry: ['./index.js'],
     module: {
-			rules: [
-				{
-					test: /\.js$/,
-					exclude: /(node_modules|bower_components)/,
-					use: {
-						loader: 'babel-loader',
-					}
-				}
-			]
+      rules: [
+        {
+          test: /\.js$/,
+          exclude: /(node_modules|bower_components)/,
+          use: {
+            loader: 'babel-loader',
+            options: {
+               presets: ['babel-preset-env']
+            }
+          }
+        }
+      ]
     },
     output: {
         path: path.resolve(__dirname, 'docs'),

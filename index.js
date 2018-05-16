@@ -1,9 +1,9 @@
 var OSDGL = require('viawebgl').openSeadragonGL;
 var OpenSeadragon = require('openseadragon');
-var get_defaults = require("./defaults")
+var get_defaults = require("./src/defaults.js")
 
-require('./channellist');
-require('./colorstops');
+require('./src/channellist.js');
+require('./src/colorstops.js');
 
 // Hard-code tiles of 1024 pixels
 window.many_channel = {

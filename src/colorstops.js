@@ -1,4 +1,6 @@
-var is_active = s => s.many_channel_active;
+var is_active = function (s) {
+  return s.many_channel_active;
+}
 
 var get_active_in_world = function(world) {
 
@@ -30,7 +32,9 @@ function define_gradient(elem, color, val0, val1) {
   grad.addColorStop(val0, 'rgba(0,0,0,1)');
 
   // Color stop ends at given color
-  var u8_color = color.map(x => Math.round(x * 255));
+  var u8_color = color.map(function(x) {
+    return Math.round(x * 255);
+  });
   var color_string = 'rgba(' + u8_color.join() + ',1)';
   grad.addColorStop(val1, color_string);
   grad.addColorStop(1, color_string);
