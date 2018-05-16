@@ -57,10 +57,10 @@ function update_color_range(e) {
   // Input validation on values
   if (val0 >= val1) {
     if (e.target == sliders[0]) {
-      sliders[1].value = val0 + 0.1;
+      sliders[1].value = val0 + 0.02;
     }
     else {
-      sliders[0].value = val1 - 0.1;
+      sliders[0].value = val1 - 0.02;
     }
     return;
   }
