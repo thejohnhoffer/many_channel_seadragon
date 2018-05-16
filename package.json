@@ -34,6 +34,7 @@
     "webpack-cli": "^2.1.2"
   },
   "scripts": {
+    "dev": "webpack --watch --mode development",
     "build": "webpack --watch",
     "clean": "rm -rf docs"
   },
