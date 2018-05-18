@@ -78,7 +78,6 @@ window.many_channel = {
     // Uniform variable for coloring
     this.u_tile_color = this.gl.getUniformLocation(program, 'u_tile_color');
     this.u_tile_range = this.gl.getUniformLocation(program, 'u_tile_range');
-    this.u_bitdepth = this.gl.getUniformLocation(program, 'u_bitdepth');
   },
 
   draw_gl: function() {
@@ -87,10 +86,13 @@ window.many_channel = {
     // Send color and range to shader
     this.gl.uniform3fv(this.u_tile_color, this.color_3fv);
     this.gl.uniform2fv(this.u_tile_range, this.range_2fv);
-    this.gl.uniform1i(this.u_bitdepth, this.bitdepth_1i);
 
     // Clear before each draw call
     this.gl.clear(this.gl.COLOR_BUFFER_BIT);
+  },
+
+  load_tile: function(callback, e) {
+    callback(e);
   },
 
   draw_tile: function(callback, e) {
@@ -105,10 +107,9 @@ window.many_channel = {
     // Store channel color and range to send to shader
     via.color_3fv = new Float32Array(source.many_channel_color);
     via.range_2fv = new Float32Array(source.many_channel_range);
-    via.bitdepth_1i = source.many_channel_bitdepth;
  
     // Start webGL rendering
-    callback(e)
+    callback(e);
   },
 
   link_webgl: function(_viewer) {
@@ -121,6 +122,7 @@ window.many_channel = {
 
     // Bind webGL event handlers
     seaGL.addHandler('tile-drawing', window.many_channel.draw_tile);
+    seaGL.addHandler('tile-loaded', window.many_channel.load_tile);
     seaGL.addHandler('gl-drawing', window.many_channel.draw_gl);
     seaGL.addHandler('gl-loaded', window.many_channel.load_gl);
 
