@@ -125,12 +125,6 @@ window.many_channel = {
     seaGL.addHandler('gl-drawing', window.many_channel.draw_gl);
     seaGL.addHandler('gl-loaded', window.many_channel.load_gl);
 
-    // Add a custom button
-    seaGL.button({
-      prefix: window.many_channel.defaults.prefixUrl,
-      tooltip: 'Toggle shaders',
-      name: 'button'
-    });
     seaGL.init();
   }
 }
