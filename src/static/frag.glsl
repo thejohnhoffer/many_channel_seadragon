@@ -6,15 +6,16 @@ precision highp usampler2D;
 uniform usampler2D u_tile;
 uniform vec3 u_tile_color;
 uniform vec2 u_tile_range;
+
 uniform uint u8;
 
-in vec2 v_tile_pos;
-
+in vec2 uv;
 out vec4 color;
+
 
 void main() {
 
-  uvec2 pixel = texture(u_tile, v_tile_pos).rg;
+  uvec2 pixel = texture(u_tile, uv).rg;
   float value = float(pixel.r * u8 + pixel.g) / 65535.;
 
   float min_ = u_tile_range[0];
