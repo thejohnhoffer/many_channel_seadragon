@@ -137,6 +137,7 @@ window.onload = function() {
 
   // Set up openseadragon viewer
   var viewer = viaWebGL.OpenSeadragon({
+    maxZoomPixelRatio: defaults.maxZoomPixelRatio,
     debugMode: defaults.debug,
     collectionMode: true,
     id: "many-channel-viewer",
