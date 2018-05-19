@@ -1,5 +1,4 @@
-var OSDGL = require('viawebgl').openSeadragonGL;
-var OpenSeadragon = require('openseadragon');
+var viaWebGL = require('viawebgl');
 var get_defaults = require("./src/defaults.js")
 
 require('./src/channellist.js');
@@ -23,7 +22,7 @@ window.many_channel = {
     var margin_menu = document.getElementById("many-channel-margin-menu");
 
     // Move the many channel menus to openseadragon buttons bar
-    var anchor = {anchor: OpenSeadragon.ControlAnchor.TOP_LEFT}
+    var anchor = {anchor: viaWebGL.OpenSeadragon.ControlAnchor.TOP_LEFT}
     _viewer.addControl(document.getElementById('many-channel-menus'), anchor);
 
     // Change type of blending
@@ -116,7 +115,7 @@ window.many_channel = {
     // Connect the viewer to webgl shaders
 
     // Define interface to shaders
-    var seaGL = new openSeadragonGL(_viewer);
+    var seaGL = new viaWebGL.openSeadragonGL(_viewer);
     seaGL.vShader = 'static/vert.glsl';
     seaGL.fShader = 'static/frag.glsl';
 
@@ -143,7 +142,7 @@ window.onload = function() {
   var tileSources = window.read_source_list(defaults);
 
   // Set up openseadragon viewer
-  var viewer = OpenSeadragon({
+  var viewer = viaWebGL.OpenSeadragon({
     debugMode: defaults.debug,
     collectionMode: true,
     id: "many-channel-viewer",

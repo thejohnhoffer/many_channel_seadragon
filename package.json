@@ -21,7 +21,6 @@
   },
   "homepage": "https://github.com/thejohnhoffer/many_channel_seadragon",
   "dependencies": {
-    "openseadragon": "git://github.com/thejohnhoffer/openseadragon.git#webgl2",
     "viawebgl": "git://github.com/thejohnhoffer/viaWebGL.git#webgl2"
   },
   "devDependencies": {
