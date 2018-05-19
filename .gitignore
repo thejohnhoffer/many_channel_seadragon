@@ -1,3 +1,4 @@
 [._]*.sw[a-z]
 
 node_modules
+build

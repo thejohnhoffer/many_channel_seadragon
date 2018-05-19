@@ -34,7 +34,7 @@
   "scripts": {
     "dev": "webpack --watch --mode development",
     "build": "webpack --watch",
-    "clean": "rm -rf docs"
+    "clean": "rm -rf build"
   },
   "browserslist": [
     "> 1%"
