@@ -6,7 +6,7 @@ precision highp usampler2D;
 uniform usampler2D u_tile;
 uniform vec3 u_tile_color;
 uniform vec2 u_tile_range;
-uniform uint u8;
+uniform uint u16;
 
 in vec2 v_tile_pos;
 
@@ -14,8 +14,11 @@ out vec4 color;
 
 void main() {
 
-  uvec2 pixel = texture(u_tile, v_tile_pos).rg;
-  float value = float(pixel.r * u8 + pixel.g) / 65535.;
+  uint num = texture(u_tile, v_tile_pos).r;
+
+  // Flip endianness
+  uint val = (num >> 8) | (num << 8) & u16;
+  float value = float(val) / float(u16);
 
   float min_ = u_tile_range[0];
   float max_ = u_tile_range[1];
