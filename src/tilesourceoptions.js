@@ -1,4 +1,5 @@
 'use strict';
+var AmazonWebSource = require('./amazonwebsource.js');
 
 /**
  * Convert rendering parameters to tiledSource Options
@@ -9,6 +10,38 @@
  *
  * @return {Oject} tileSource Options
  */
+
+const getTileName = (x, y, level, channel) => {
+  return "C" + channel + "-T0-Z0-L" + level + "-Y" + y + "-X" + x + ".png";
+}
+
+const getTileUrl = function(l, x, y) {
+  var level = this.maxLevel - l;
+  var url = this.many_channel_url;
+  var channel = this.many_channel_id;
+
+  var name = getTileName(x, y, level, channel);
+  return url + '/' + name;
+} 
+
+const getAmazonUrl = function(l, x, y) {
+  var level = this.maxLevel - l;
+  var url = this.many_channel_url;
+  var channel = this.many_channel_id;
+  var credentials = this.many_channel_aws;
+  
+  // Format bucket and key for aws
+  var name = getTileName(x, y, level, channel);
+  var path = url.split('/').slice(1).join('/');
+  var bucket = url.split('/')[0];
+  var key = path + '/' + name;
+  
+  // Make a request to AWS
+  AmazonWebSource(credentials, bucket, key);
+
+  return bucket + ',' + key;
+}
+
 module.exports = function(channel, url, type, selected, aws) {
   var output = {
     many_channel_color: channel.many_channel_color,
@@ -24,23 +57,22 @@ module.exports = function(channel, url, type, selected, aws) {
     output.url = url;
     return output;
   } 
+
   // Many channels in tiled image
-  output.getTileUrl = function(l, x, y){
-    var level = this.maxLevel - l;
-    var channel = this.many_channel_id;
-    var url = this.many_channel_url;
-    
-    // Format the file name
-    var name = "C" + channel + "-T0-Z0-L" + level + "-Y" + y + "-X" + x + ".png";
-    return url + '/' + name; 
-  
-  }
   output.many_channel_url = url;
   output.tileSize = 1024;
   output.height = 4080;
   output.width = 7220;
   output.minLevel = 0;
   output.maxLevel = 3;
+
+  // AWS image source
+  if (type == "aws") {
+    output.getTileUrl = getAmazonUrl; 
+    return output;
+  }
+
+  output.getTileUrl = getTileUrl; 
   return output;
 };
 

@@ -21,6 +21,7 @@
   },
   "homepage": "https://github.com/thejohnhoffer/many_channel_seadragon",
   "dependencies": {
+    "aws-sdk": "^2.243.1",
     "viawebgl": "git://github.com/thejohnhoffer/viaWebGL.git#webgl2"
   },
   "devDependencies": {
