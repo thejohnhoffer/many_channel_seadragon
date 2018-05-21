@@ -32,6 +32,7 @@ var get_tilesource_options = function(hash, query) {
   var active_source = 0;
   var num_sources = 0;
   var source_urls = {};
+  var aws_creds = {};
 
   // Set active source, source urls
   query.split('&').forEach(function(entry) {
@@ -57,6 +58,11 @@ var get_tilesource_options = function(hash, query) {
       else
         source_urls.src = value;
     }
+
+    // Use entries starting with aws
+    if (key.slice(0, 3) == 'aws') {
+      aws_creds[key.slice(4)]  = value;
+    }
   });
 
   // Rendering parameters for each channel
@@ -69,7 +75,7 @@ var get_tilesource_options = function(hash, query) {
     var is_active = order == active_source;
     
     // Create a TileSourceOptions Object
-    return TileSourceOptions(channel, source_url, source_type, is_active);
+    return TileSourceOptions(channel, source_url, source_type, is_active, aws_creds);
   });
 }
 

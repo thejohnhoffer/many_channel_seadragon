@@ -5,16 +5,17 @@
  * @param {Object} channel: Parameters to render channel
  * @param {string} url: Url of this channel's source
  * @param {boolean} selected: If this channel is active
+ * @param {Object} aws: Credentials to access aws
  *
  * @return {Oject} tileSource Options
  */
-module.exports = function(channel, url, type, selected) {
+module.exports = function(channel, url, type, selected, aws) {
   var output = {
     many_channel_color: channel.many_channel_color,
     many_channel_range: channel.many_channel_range,
     many_channel_id: channel.many_channel_id,
     many_channel_active: selected,
-    many_channel_bitdepth: 8,
+    many_channel_aws: aws,
   }
   // Single image
   if (type == "image") {
