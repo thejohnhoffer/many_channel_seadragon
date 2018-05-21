@@ -6,7 +6,7 @@ import AWS from 'aws-sdk';
  * @param {string} bucket: s3 bucket
  * @param {string} file: s3 file
  */
-module.exports = function(keywords, bucket, key) {
+module.exports = function(keywords) {
 
 	var credentials = new AWS.Credentials({
     accessKeyId: keywords.AccessKeyId,
@@ -20,30 +20,37 @@ module.exports = function(keywords, bucket, key) {
   });
 
 	AWS.config.credentials = credentials;
-
-	// Wait for credentials
-	const getCredentials = () => {
-		return new Promise((resolve, reject) => {
-			AWS.config.credentials.get(err => err ? reject(err) : resolve());
-		});
-	};
-
-
-	const getObject = (bucket, key) => {
-
-		return new Promise((resolve, reject) => {
-			// In this case, supplying credential is redundant, but soon the credentials
-			// used for accessing S3 and the credentials the user has as a part of their
-			// AWS Cognito user account will be different.
-			const s3 = new AWS.S3({ credentials: AWS.config.credentials });
-			const params = { Bucket: bucket, Key: key };
-			s3.getObject(params, (err, data) => err ? reject(err) : resolve(data));
-		});
-	};
-
-	getCredentials()
-		.then(() => getObject(bucket, key))
-		.then(obj => console.log(obj))
-		.catch(err => console.error(err));
 }
 
+module.exports.prototype = {
+
+	makeAjaxRequest: function(options) {
+
+		// Wait for credentials
+		const getCredentials = () => {
+			return new Promise((resolve, reject) => {
+				AWS.config.credentials.get(err => err ? reject(err) : resolve());
+			});
+		};
+
+		const getObject = (bucket, key) => {
+			return new Promise((resolve, reject) => {
+				// In this case, supplying credential is redundant, but soon the credentials
+				// used for accessing S3 and the credentials the user has as a part of their
+				// AWS Cognito user account will be different.
+				const s3 = new AWS.S3({ credentials: AWS.config.credentials });
+				const params = { Bucket: bucket, Key: key };
+				s3.getObject(params, (err, data) => err ? reject(err) : resolve(data));
+			});
+		};
+
+		// Split the URL into bucket and key
+		var no_protocol = options.url.split('://')[1];
+	  var [bucket, key] = no_protocol.split('.s3.amazonaws.com/');	
+
+		getCredentials()
+			.then(() => getObject(bucket, key))
+			.then(obj => options.success({response: obj.Body}))
+			.catch(err => console.error(err));
+	}
+}

@@ -24,31 +24,13 @@ const getTileUrl = function(l, x, y) {
   return url + '/' + name;
 } 
 
-const getAmazonUrl = function(l, x, y) {
-  var level = this.maxLevel - l;
-  var url = this.many_channel_url;
-  var channel = this.many_channel_id;
-  var credentials = this.many_channel_aws;
-  
-  // Format bucket and key for aws
-  var name = getTileName(x, y, level, channel);
-  var path = url.split('/').slice(1).join('/');
-  var bucket = url.split('/')[0];
-  var key = path + '/' + name;
-  
-  // Make a request to AWS
-  AmazonWebSource(credentials, bucket, key);
-
-  return bucket + ',' + key;
-}
-
-module.exports = function(channel, url, type, selected, aws) {
+module.exports = function(channel, url, type, selected,
+                          credentials) {
   var output = {
     many_channel_color: channel.many_channel_color,
     many_channel_range: channel.many_channel_range,
     many_channel_id: channel.many_channel_id,
-    many_channel_active: selected,
-    many_channel_aws: aws,
+    many_channel_active: selected
   }
   // Single image
   if (type == "image") {
@@ -59,6 +41,7 @@ module.exports = function(channel, url, type, selected, aws) {
   } 
 
   // Many channels in tiled image
+  output.getTileUrl = getTileUrl;
   output.many_channel_url = url;
   output.tileSize = 1024;
   output.height = 4080;
@@ -68,12 +51,9 @@ module.exports = function(channel, url, type, selected, aws) {
 
   // AWS image source
   if (type == "aws") {
-    output.getTileUrl = getAmazonUrl; 
-    return output;
+    var aws = new AmazonWebSource(credentials);
+    output.makeAjaxRequest = aws.makeAjaxRequest; 
   }
 
-  output.getTileUrl = getTileUrl; 
   return output;
 };
-
-
