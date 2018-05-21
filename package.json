@@ -21,7 +21,7 @@
   },
   "homepage": "https://github.com/thejohnhoffer/many_channel_seadragon",
   "dependencies": {
-    "viawebgl": "git://github.com/thejohnhoffer/viaWebGL.git#fixviewport"
+    "viawebgl": "git://github.com/thejohnhoffer/viaWebGL.git#webgl2"
   },
   "devDependencies": {
     "babel-core": "^6.26.3",

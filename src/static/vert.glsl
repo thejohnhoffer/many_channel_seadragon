@@ -1,8 +1,12 @@
 #version 300 es
-in vec4 a_pos;
+in vec2 a_uv;
 out vec2 uv;
 
 void main() {
-  uv = (a_pos.xy + 1.) / 2.;
-  gl_Position = a_pos;
+  // Texture coordinates
+  uv = a_uv;
+
+  // Clip coordinates
+  vec2 full_pos = 2. * a_uv - 1.;
+  gl_Position = vec4(full_pos, 0., 1.);
 }
