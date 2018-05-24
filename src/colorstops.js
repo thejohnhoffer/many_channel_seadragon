@@ -5,9 +5,9 @@ var is_active = function (s) {
 var get_active_in_world = function(world) {
 
   for (var i = 0; i < world.getItemCount(); i++) {
-    var tileSource = world.getItemAt(i).source;
-    if (is_active(tileSource))
-      return tileSource;
+    var tiledImage = world.getItemAt(i);
+    if (is_active(tiledImage.source))
+      return tiledImage;
   }
 }
 
@@ -66,18 +66,15 @@ function update_color_range(e) {
   }
 
   // Set values for the active tiled image
-  var tileSource = get_active_in_world(this.world);
-  tileSource.many_channel_range = [val0, val1];
+  var tiledImage = get_active_in_world(this.world);
+  tiledImage.source.many_channel_range = [val0, val1];
 
   // Set gradient from values
-  var color = tileSource.many_channel_color;
+  var color = tiledImage.source.many_channel_color;
   define_gradient(elem, color, val0, val1);
 
 	// trigger world animation 
-  for (var i = 0; i < this.world.getItemCount(); i++) {  
-    var tiled_image = this.world.getItemAt(i);
-    tiled_image._needsDraw = true;
-  }
+  tiledImage._needsDraw = true;
   this.world.update();
 }
 
