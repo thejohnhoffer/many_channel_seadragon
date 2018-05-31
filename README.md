@@ -33,6 +33,13 @@ To render b.png to blue and y.png to yellow, use url parameters:
 ?type=image&src0=b.png&src1=y.png#/0,0000FF,0,1/0,FFFF00,0,1
 ```
 
+To access tiled images from an AWS S3 Bucket,  include the folowing 3 url parameters:
+
+- awsSessionToken
+- awsAccessKeyId
+- awsSecretAccessKey
+
+
 ### Multi-Channel API
 
 To render channel 3 to blue and 4 to yellow from `http://example.com/tiles`, use url parameters:

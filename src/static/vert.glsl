@@ -1,8 +1,12 @@
-attribute vec4 a_pos;
-attribute vec2 a_tile_pos;
-varying vec2 v_tile_pos;
+#version 300 es
+in vec2 a_uv;
+out vec2 uv;
 
 void main() {
-  v_tile_pos = a_tile_pos;
-  gl_Position = a_pos;
+  // Texture coordinates
+  uv = a_uv;
+
+  // Clip coordinates
+  vec2 full_pos = 2. * a_uv - 1.;
+  gl_Position = vec4(full_pos, 0., 1.);
 }

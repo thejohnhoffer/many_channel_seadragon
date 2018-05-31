@@ -25,13 +25,14 @@ var get_tilesource_options = function(hash, query) {
   // query: string like src=...&10src=...
   
   // No channels to render
-  if (hash == "")
+  if (hash == '')
     return [];
 
-  var source_type = "custom";
+  var source_type = 'custom';
   var active_source = 0;
   var num_sources = 0;
   var source_urls = {};
+  var aws_creds = {};
 
   // Set active source, source urls
   query.split('&').forEach(function(entry) {
@@ -57,6 +58,11 @@ var get_tilesource_options = function(hash, query) {
       else
         source_urls.src = value;
     }
+
+    // Use entries starting with aws
+    if (key.slice(0, 3) == 'aws') {
+      aws_creds[key.slice(3)]  = value;
+    }
   });
 
   // Rendering parameters for each channel
@@ -69,7 +75,7 @@ var get_tilesource_options = function(hash, query) {
     var is_active = order == active_source;
     
     // Create a TileSourceOptions Object
-    return TileSourceOptions(channel, source_url, source_type, is_active);
+    return TileSourceOptions(channel, source_url, source_type, is_active, aws_creds);
   });
 }
 
@@ -78,10 +84,10 @@ window.read_source_list = function(defaults) {
 
   // Set default hash for channel rendering
   var hash = window.location.hash.slice(2);
-  hash = hash || "0,FF0000,0,1/1,00FF00,0,1";
+  hash = hash || '0,FF0000,0,1/1,00FF00,0,1';
 
   // Set default query for channel urls
-  var query =  defaults.query || "";
+  var query =  defaults.query || '';
   var search = window.location.search.slice(1)
   if (search != '')
     query += '&' + search;
