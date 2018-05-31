@@ -33,8 +33,8 @@
     "webpack-cli": "^2.1.2"
   },
   "scripts": {
-    "dev": "webpack --watch --mode development",
-    "build": "webpack --watch",
+    "start": "webpack-dev-server --host 0.0.0.0 --port 8487 --config ./webpack.config.js --mode development",
+    "build": "webpack",
     "clean": "rm -rf build"
   },
   "browserslist": [
