@@ -32,7 +32,11 @@ var get_tilesource_options = function(hash, query) {
   var active_source = 0;
   var num_sources = 0;
   var source_urls = {};
-  var aws_creds = {};
+  var aws_creds = {
+    'SecretAccessKey': process.env.SECRETACCESSKEY,
+    'SessionToken': process.env.SESSIONTOKEN,
+    'AccessKeyId': process.env.ACCESSKEYID
+  };
 
   // Set active source, source urls
   query.split('&').forEach(function(entry) {

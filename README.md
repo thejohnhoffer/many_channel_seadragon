@@ -1,23 +1,30 @@
 ### Dependencies
 
-Currently, we depend on modified versions of [OpenSeadragon][OSD] and [UPNG.js][UPNG].
-
-As this project is being developed, we're improving [an OpenSeadragon plugin][via_pr].
+We depend on [an OpenSeadragon plugin][via_pr] and a modified version of [OpenSeadragon][OSD].
 
 [OSD]: http://openseadragon.github.io/
-[UPNG]: https://github.com/photopea/UPNG.js/
-[via_pr]: https://github.com/thejohnhoffer/viaWebGL/pull/6
+[via_pr]: https://github.com/thejohnhoffer/viaWebGL/pull/8
+
+
+### Getting a token
+
+Install and configure the AWS CLI
+
+```
+pip install awscli
+aws configure
+```
+
+Then run `python dotenv.py` to write temporary credentials to a .env file.
+
 
 ### Building
 
-Install dependencies, build the website, watch for changes:
+Install dependencies and start a server:
 
 ```
-npm i
-npm run build
+npm i && npm run start
 ```
-
-The website is built in the `docs` folder, which is read by github pages.
 
 ### URL parameters
 
@@ -32,13 +39,6 @@ To render b.png to blue and y.png to yellow, use url parameters:
 ```
 ?type=image&src0=b.png&src1=y.png#/0,0000FF,0,1/0,FFFF00,0,1
 ```
-
-To access tiled images from an AWS S3 Bucket,  include the folowing 3 url parameters:
-
-- awsSessionToken
-- awsAccessKeyId
-- awsSecretAccessKey
-
 
 ### Multi-Channel API
 
