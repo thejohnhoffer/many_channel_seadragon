@@ -22,17 +22,17 @@
   "homepage": "https://github.com/thejohnhoffer/many_channel_seadragon",
   "dependencies": {
     "aws-sdk": "^2.243.1",
-    "viawebgl": "git://github.com/thejohnhoffer/viaWebGL.git#webgl2"
+    "openseadragon": "git://github.com/thejohnhoffer/openseadragon.git#gldrawer"
   },
   "devDependencies": {
     "babel-core": "^6.26.3",
     "babel-loader": "^7.1.4",
     "babel-preset-env": "^1.7.0",
-    "webpack-dev-server": "^3.1.0",
     "copy-webpack-plugin": "^4.5.1",
+    "dotenv-webpack": "^1.5.5",
     "webpack": "^4.7.0",
-    "webpack-cli": "^2.1.2",
-    "dotenv-webpack": "^1.5.5"
+    "webpack-cli": "^3.0.3",
+    "webpack-dev-server": "^3.1.0"
   },
   "scripts": {
     "start": "webpack-dev-server --host 0.0.0.0 --port 8487 --config ./webpack.config.js --mode development",
