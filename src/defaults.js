@@ -8,7 +8,7 @@
 module.exports = function(pathname) {
   var debug = false;
   var maxZoomPixelRatio = 2;
-  var query = "type=image&0src=images/2x2.png";
+  var query = "src=https://s3.amazonaws.com/minerva-test-images/png_tiles";
 
   // Different defaults by root path
   var root_path = pathname.split('/')[1];
